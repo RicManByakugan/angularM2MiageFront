@@ -1,0 +1,12 @@
+.rendu{
+    color: green;
+}
+
+.nonrendu{
+    color: red;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+}
