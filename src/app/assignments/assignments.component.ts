@@ -12,19 +12,19 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { Assignment } from './assignment.model';
 import { AssignmentDetailComponent } from './assignment-detail/assignment-detail.component';
 import {MatListModule} from '@angular/material/list';
+import { AddAssignmentComponent } from './add-assignment/add-assignment.component';
 
 @Component({
   selector: 'app-assignments',
   standalone: true,
   providers: [],
-  imports: [AssignmentDetailComponent, CommonModule, RenduDirective, 
+  imports: [AddAssignmentComponent, AssignmentDetailComponent, CommonModule, RenduDirective, 
     FormsModule, MatListModule, MatButtonModule, MatInputModule, MatDatepickerModule,MatNativeDateModule, MatFormFieldModule, MatDividerModule],
   templateUrl: './assignments.component.html',
   styleUrl: './assignments.component.css'
 })
 export class AssignmentsComponent implements OnInit {
   Titre = "Mon application sur les Assignments !";
-  ajoutActive = false
   assignments = [
     {
       nom: "Angular",
@@ -42,7 +42,7 @@ export class AssignmentsComponent implements OnInit {
       rendu: true
     }
   ]
-
+  formVisible = false
 
   ngOnInit(): void {
     // setTimeout(() =>{
@@ -50,19 +50,18 @@ export class AssignmentsComponent implements OnInit {
     // }, 5000)
   }
 
+  onAddAssignmentBtnClick(){
+    this.formVisible = true
+  }
   assignmentSelecionne!: Assignment
   assignmentClique(a: Assignment): void {
     this.assignmentSelecionne = a
   }
 
-  NomAssignment!: any;
-  DateAssignment!: any;
-  onSubmit(event: any){
-    let assignment = new Assignment()
-    assignment.nom = this.NomAssignment
-    assignment.dateDeRendu = this.DateAssignment
-    assignment.rendu = false
-    console.log(assignment);
-    this.assignments.push(assignment)
+  onNouvelAssignment(a: Assignment){
+    this.assignments.push(a)
+    this.formVisible = false
   }
+
+  
 }
