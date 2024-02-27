@@ -33,7 +33,25 @@
   </button>
 </form>
 
-@for(assignment of assignments; track assignment.nom){
+<mat-list>
+  @for(assignment of assignments; track assignment.nom){
+  <mat-list-item (click)="assignmentClique(assignment)">
+    <div [ngClass]="{ rendu: assignment.rendu, nonrendu: !assignment.rendu }">
+      <h3 mat-subheader>
+        {{ assignment.nom }} :
+        <small>{{ assignment.dateDeRendu | date : "dd/MM/YYYY" }}</small>
+      </h3>
+    </div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  }
+</mat-list>
+
+<app-assignment-detail
+  [assignmentTransmis]="assignmentSelecionne"
+></app-assignment-detail>
+
+<!--@for(assignment of assignments; track assignment.nom){
 <div [ngClass]="{ rendu: assignment.rendu, nonrendu: !assignment.rendu }">
   @if(assignment.rendu){
   <p appRendu>{{ assignment.nom }}</p>
@@ -45,4 +63,4 @@
   <mat-divider></mat-divider>
   }
 </div>
-}
+}-->
