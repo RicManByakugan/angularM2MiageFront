@@ -15,9 +15,7 @@ export class AssignmentDetailComponent implements OnInit {
   @Input()
   assignmentTransmis!: Assignment
 
-  constructor(){
-
-  }
+  constructor(){}
 
   ngOnInit(): void{}
 

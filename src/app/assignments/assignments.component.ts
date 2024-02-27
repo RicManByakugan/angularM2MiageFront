@@ -13,6 +13,7 @@ import { Assignment } from './assignment.model';
 import { AssignmentDetailComponent } from './assignment-detail/assignment-detail.component';
 import {MatListModule} from '@angular/material/list';
 import { AddAssignmentComponent } from './add-assignment/add-assignment.component';
+import { AssignmentsService } from '../shared/assignments.service';
 
 @Component({
   selector: 'app-assignments',
@@ -25,42 +26,30 @@ import { AddAssignmentComponent } from './add-assignment/add-assignment.componen
 })
 export class AssignmentsComponent implements OnInit {
   Titre = "Mon application sur les Assignments !";
-  assignments = [
-    {
-      nom: "Angular",
-      dateDeRendu: new Date("08-08-2024"),
-      rendu: true
-    },
-    {
-      nom: "SQL",
-      dateDeRendu: new Date("08-08-2024"),
-      rendu: false
-    },
-    {
-      nom: "DB",
-      dateDeRendu: new Date("08-08-2024"),
-      rendu: true
-    }
-  ]
+  assignments: Assignment[] = []
   formVisible = false
 
+  constructor(private assignmentService: AssignmentsService) { }
   ngOnInit(): void {
-    // setTimeout(() =>{
-    //   this.ajoutActive = false;
-    // }, 5000)
+    this.assignmentService.getAssignments()
+      .subscribe(assignments => this.assignments = assignments);
   }
 
   onAddAssignmentBtnClick(){
     this.formVisible = true
   }
+
   assignmentSelecionne!: Assignment
   assignmentClique(a: Assignment): void {
     this.assignmentSelecionne = a
   }
 
   onNouvelAssignment(a: Assignment){
-    this.assignments.push(a)
-    this.formVisible = false
+    this.assignmentService.addAssignment(a)
+      .subscribe(reponse => {
+        console.log(reponse);
+        this.formVisible = false
+      })
   }
 
   

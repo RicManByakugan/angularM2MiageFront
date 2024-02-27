@@ -22,11 +22,11 @@ export class AddAssignmentComponent {
   @Output() nouvelAssignment = new EventEmitter<Assignment>();
 
   ajoutActive = false
-  NomAssignment!: any;
+  NomAssignment = "";
   DateAssignment!: any;
 
   onSubmit(event: any){
-    if ((this.NomAssignment == "") || (this.DateAssignment == "")) return;
+    if ((this.NomAssignment === "") || (this.DateAssignment === undefined)) return;
     let newassignment = new Assignment()
     newassignment.nom = this.NomAssignment
     newassignment.dateDeRendu = this.DateAssignment
