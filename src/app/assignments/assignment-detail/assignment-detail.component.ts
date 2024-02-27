@@ -1,21 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Assignment } from '../assignment.model';
 import { CommonModule } from '@angular/common';
 import {MatCardModule} from '@angular/material/card'
 import {MatCheckboxModule} from '@angular/material/checkbox'
+import { AssignmentsService } from '../../shared/assignments.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-assignment-detail',
   standalone: true,
-  imports: [MatCardModule, MatCheckboxModule, CommonModule],
+  imports: [MatCardModule, MatCheckboxModule, CommonModule, MatButtonModule],
   templateUrl: './assignment-detail.component.html',
   styleUrl: './assignment-detail.component.css'
 })
 export class AssignmentDetailComponent implements OnInit {
   @Input()
-  assignmentTransmis!: Assignment
+  assignmentTransmis!: Assignment | undefined
+  @Output()
+  deleteAssignment = new EventEmitter<Assignment>();
 
-  constructor(){}
+  constructor(private assignmentService: AssignmentsService){}
 
   ngOnInit(): void{}
 
@@ -23,5 +27,9 @@ export class AssignmentDetailComponent implements OnInit {
     if(this.assignmentTransmis){
       this.assignmentTransmis.rendu = true
     }
+  }
+
+  onDelete(){
+    this.deleteAssignment.emit(this.assignmentTransmis);
   }
 }

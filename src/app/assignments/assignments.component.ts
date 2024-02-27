@@ -39,7 +39,7 @@ export class AssignmentsComponent implements OnInit {
     this.formVisible = true
   }
 
-  assignmentSelecionne!: Assignment
+  assignmentSelecionne!: Assignment | undefined
   assignmentClique(a: Assignment): void {
     this.assignmentSelecionne = a
   }
@@ -52,5 +52,23 @@ export class AssignmentsComponent implements OnInit {
       })
   }
 
+  onUpdateAssignment(a: Assignment) {
+    this.assignmentService.updateAssignment(a)
+        .subscribe(reponse => {
+          console.log(reponse);
+        })
+  }
+
+  onDeleteAssignment(a: Assignment) {
+    this.assignmentService.deleteAssignment(a)
+      .subscribe(reponse => {
+        console.log(reponse)
+        this.assignmentSelecionne = undefined
+      }); 
+    // if(this.assignmentSelecionne) {
+    //   let pos = this.assignments.indexOf(a);
+    //   this.assignments.splice(pos, 1);
+    // }  
+  }
   
 }

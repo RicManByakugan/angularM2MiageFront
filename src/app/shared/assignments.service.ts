@@ -39,5 +39,10 @@ export class AssignmentsService {
     return of("Mise a jour effectué")
   }
 
-
+  deleteAssignment(assignment: Assignment): Observable<string>{
+    // this.assignments = this.assignments.filter(a => a!== assignment);
+    let pos = this.assignments.indexOf(assignment);
+    this.assignments.splice(pos, 1);
+    return of("Supprimé")
+  }
 }
