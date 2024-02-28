@@ -14,12 +14,13 @@ import { AssignmentDetailComponent } from './assignment-detail/assignment-detail
 import {MatListModule} from '@angular/material/list';
 import { AddAssignmentComponent } from './add-assignment/add-assignment.component';
 import { AssignmentsService } from '../shared/assignments.service';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-assignments',
   standalone: true,
   providers: [],
-  imports: [AddAssignmentComponent, AssignmentDetailComponent, CommonModule, RenduDirective, 
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, AddAssignmentComponent, AssignmentDetailComponent, CommonModule, RenduDirective, 
     FormsModule, MatListModule, MatButtonModule, MatInputModule, MatDatepickerModule,MatNativeDateModule, MatFormFieldModule, MatDividerModule],
   templateUrl: './assignments.component.html',
   styleUrl: './assignments.component.css'
@@ -44,13 +45,13 @@ export class AssignmentsComponent implements OnInit {
     this.assignmentSelecionne = a
   }
 
-  onNouvelAssignment(a: Assignment){
-    this.assignmentService.addAssignment(a)
-      .subscribe(reponse => {
-        console.log(reponse);
-        this.formVisible = false
-      })
-  }
+  // onNouvelAssignment(a: Assignment){
+  //   this.assignmentService.addAssignment(a)
+  //     .subscribe(reponse => {
+  //       console.log(reponse);
+  //       this.formVisible = false
+  //     })
+  // }
 
   onUpdateAssignment(a: Assignment) {
     this.assignmentService.updateAssignment(a)

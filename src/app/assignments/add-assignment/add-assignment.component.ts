@@ -9,6 +9,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { AssignmentsService } from '../../shared/assignments.service';
 
 @Component({
   selector: 'app-add-assignment',
@@ -19,7 +20,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   styleUrl: './add-assignment.component.css'
 })
 export class AddAssignmentComponent {
-  @Output() nouvelAssignment = new EventEmitter<Assignment>();
+  // @Output() nouvelAssignment = new EventEmitter<Assignment>();
+
+  constructor(private assignmentService: AssignmentsService) { }
 
   ajoutActive = false
   NomAssignment = "";
@@ -32,7 +35,12 @@ export class AddAssignmentComponent {
     newassignment.dateDeRendu = this.DateAssignment
     newassignment.rendu = false
     console.log(newassignment);
-    this.nouvelAssignment.emit(newassignment)
+
+    this.assignmentService.addAssignment(newassignment)
+    .subscribe(reponse => {
+      console.log(reponse);
+    })
+    // this.nouvelAssignment.emit(newassignment)
     // this.assignments.push(assignment)
   }
 }

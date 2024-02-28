@@ -1,19 +1,24 @@
 <p>Titre : {{ Titre }}</p>
 
-@if (formVisible){
+<!--@if (formVisible){
 <app-add-assignment
   (nouvelAssignment)="onNouvelAssignment($event)"
 ></app-add-assignment>
 }@else{
+
+}-->
+
 <div class="container">
-  <button
-    mat-flat-button
-    color="accent"
-    (click)="onAddAssignmentBtnClick()"
-    class="ajouterBtn"
-  >
-    Ajout un devoir
-  </button>
+  <a routerLink="/add">
+    <button
+      mat-flat-button
+      color="accent"
+      (click)="onAddAssignmentBtnClick()"
+      class="ajouterBtn"
+    >
+      Ajout un devoir
+    </button>
+  </a>
   <mat-list>
     @for(assignment of assignments; track assignment.nom){
     <mat-list-item (click)="assignmentClique(assignment)">
@@ -31,7 +36,6 @@
 <app-assignment-detail
   [assignmentTransmis]="assignmentSelecionne"
 ></app-assignment-detail>
-}
 
 <!--
   <app-assignment-detail
