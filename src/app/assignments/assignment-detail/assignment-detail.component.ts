@@ -6,6 +6,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox'
 import { AssignmentsService } from '../../shared/assignments.service';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -23,8 +24,13 @@ export class AssignmentDetailComponent implements OnInit {
   constructor(
     private assignmentService: AssignmentsService, 
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ){}
+
+  isAdmin() {
+    return this.authService.loggedIn;
+  }
 
   ngOnInit(): void{
     this.getAssignment()

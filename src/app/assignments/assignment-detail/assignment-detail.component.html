@@ -11,11 +11,11 @@
         (click)="onAssignmentRendu()"
         >Devoir rendu</mat-checkbox
       >
-      <button mat-flat-button color="warn" (click)="onDelete()">Delete</button>
+      <button mat-flat-button color="warn" (click)="onDelete()" [disabled]="!isAdmin()">Delete</button>
       <nav>
         <!--<a routerLink="edit">-->
         <a [routerLink]="['/assignment', assignmentTransmis.id , 'edit']">
-          <button mat-raised-button color="primary">EDIT</button>
+          <button mat-raised-button color="primary" [disabled]="!isAdmin()">EDIT</button>
         </a>
       </nav>
       </mat-card-actions>
