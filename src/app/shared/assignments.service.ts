@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Assignment } from '../assignments/assignment.model';
-import { Observable, of } from 'rxjs'; 
+import { Observable, of, pipe } from 'rxjs'; 
+import { catchError, map } from 'rxjs/operators'
 import { LoggingService } from './logging.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -42,6 +43,13 @@ export class AssignmentsService {
     // const a:Assignment | undefined = this.assignments.find(a => a.id == id)
     // return of(a);
     return this.http.get<Assignment>(this.backendURL + "/" + id)
+      .pipe(
+        map(a => {
+          a.nom += " MODIFIE PIPE"
+          return a
+        }
+      )
+      )
   }
 
   addAssignment(assignment: Assignment): Observable<any> {
