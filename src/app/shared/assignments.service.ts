@@ -33,11 +33,12 @@ export class AssignmentsService {
 
   addAssignment(assignment: Assignment): Observable<string> {
     this.assignments.push(assignment);
-    this.loggingService.log(assignment.nom, "ajouté")
+    this.loggingService.log(assignment.nom, "Ajouté")
     return of("Ajouté")
   }
 
   updateAssignment(assignment: Assignment): Observable<string> {
+    this.loggingService.log(assignment.nom, "Mise a jour effectué")
     return of("Mise a jour effectué")
   }
 
@@ -45,6 +46,7 @@ export class AssignmentsService {
     // this.assignments = this.assignments.filter(a => a!== assignment);
     let pos = this.assignments.indexOf(assignment);
     this.assignments.splice(pos, 1);
+    this.loggingService.log(assignment.nom, "Supprimé")
     return of("Supprimé")
   }
 }
