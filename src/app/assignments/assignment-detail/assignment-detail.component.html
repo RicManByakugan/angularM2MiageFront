@@ -12,7 +12,12 @@
         >Devoir rendu</mat-checkbox
       >
       <button mat-flat-button color="warn" (click)="onDelete()">Delete</button>
-    </mat-card-actions>
+      <nav>
+        <a routerLink="edit">
+          <button mat-raised-button color="primary">EDIT</button>
+        </a>
+      </nav>
+      </mat-card-actions>
   </mat-card-content>
 </mat-card>
 }

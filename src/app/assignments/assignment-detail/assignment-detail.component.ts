@@ -5,12 +5,12 @@ import {MatCardModule} from '@angular/material/card'
 import {MatCheckboxModule} from '@angular/material/checkbox'
 import { AssignmentsService } from '../../shared/assignments.service';
 import { MatButtonModule } from '@angular/material/button';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-assignment-detail',
   standalone: true,
-  imports: [MatCardModule, MatCheckboxModule, CommonModule, MatButtonModule],
+  imports: [MatCardModule, MatCheckboxModule, CommonModule, MatButtonModule, RouterLink],
   templateUrl: './assignment-detail.component.html',
   styleUrl: './assignment-detail.component.css'
 })
