@@ -16,8 +16,8 @@ import { MatButtonModule } from '@angular/material/button';
 export class AssignmentDetailComponent implements OnInit {
   @Input()
   assignmentTransmis!: Assignment | undefined
-  @Output()
-  deleteAssignment = new EventEmitter<Assignment>();
+  // @Output()
+  // deleteAssignment = new EventEmitter<Assignment>();
 
   constructor(private assignmentService: AssignmentsService){}
 
@@ -26,10 +26,19 @@ export class AssignmentDetailComponent implements OnInit {
   onAssignmentRendu(){
     if(this.assignmentTransmis){
       this.assignmentTransmis.rendu = true
+      this.assignmentService.updateAssignment(this.assignmentTransmis)
+        .subscribe(res => console.log(res))
     }
   }
 
   onDelete(){
-    this.deleteAssignment.emit(this.assignmentTransmis);
+    // this.deleteAssignment.emit(this.assignmentTransmis);
+    if(this.assignmentTransmis){
+        this.assignmentService.deleteAssignment(this.assignmentTransmis)
+          .subscribe(reponse => {
+            console.log(reponse)
+            this.assignmentTransmis = undefined
+          }); 
+    }
   }
 }

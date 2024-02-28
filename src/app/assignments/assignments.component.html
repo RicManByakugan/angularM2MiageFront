@@ -30,11 +30,16 @@
 </div>
 <app-assignment-detail
   [assignmentTransmis]="assignmentSelecionne"
-  (deleteAssignment)="onDeleteAssignment($event)"
 ></app-assignment-detail>
 }
 
-<!--@for(assignment of assignments; track assignment.nom){
+<!--
+  <app-assignment-detail
+  [assignmentTransmis]="assignmentSelecionne"
+  (deleteAssignment)="onDeleteAssignment($event)"
+
+></app-assignment-detail>
+  @for(assignment of assignments; track assignment.nom){
 <div [ngClass]="{ rendu: assignment.rendu, nonrendu: !assignment.rendu }">
   @if(assignment.rendu){
   <p appRendu>{{ assignment.nom }}</p>
