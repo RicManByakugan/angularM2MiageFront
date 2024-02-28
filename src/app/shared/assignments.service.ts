@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Assignment } from '../assignments/assignment.model';
 import { Observable, of } from 'rxjs'; 
 import { LoggingService } from './logging.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -28,33 +29,40 @@ export class AssignmentsService {
     }
   ]
 
-  constructor(private loggingService: LoggingService) { }
+  backendURL = "http://localhost:8010/api/assignments"
+
+  constructor(private loggingService: LoggingService, private http: HttpClient) { }
 
   getAssignments(): Observable<Assignment[]> {
-    return of(this.assignments);
+    return this.http.get<Assignment[]>(this.backendURL)
+    // return of(this.assignments); 
   }
 
   getAssignment(id: number): Observable<Assignment | undefined> {
-    const a:Assignment | undefined = this.assignments.find(a => a.id == id)
-    return of(a);
+    // const a:Assignment | undefined = this.assignments.find(a => a.id == id)
+    // return of(a);
+    return this.http.get<Assignment>(this.backendURL + "/" + id)
   }
 
-  addAssignment(assignment: Assignment): Observable<string> {
-    this.assignments.push(assignment);
-    this.loggingService.log(assignment.nom, "Ajouté")
-    return of("Ajouté")
+  addAssignment(assignment: Assignment): Observable<any> {
+    // this.assignments.push(assignment);
+    // this.loggingService.log(assignment.nom, "Ajouté")
+    // return of("Ajouté")
+    return this.http.post<Assignment>(this.backendURL, assignment)
   }
 
   updateAssignment(assignment: Assignment): Observable<string> {
-    this.loggingService.log(assignment.nom, "Mise a jour effectué")
-    return of("Mise a jour effectué")
+    // this.loggingService.log(assignment.nom, "Mise a jour effectué")
+    // return of("Mise a jour effectué")
+    return this.http.put<string>(this.backendURL, assignment)
   }
 
-  deleteAssignment(assignment: Assignment): Observable<string>{
+  deleteAssignment(assignment: Assignment): Observable<any>{
     // this.assignments = this.assignments.filter(a => a!== assignment);
-    let pos = this.assignments.indexOf(assignment);
-    this.assignments.splice(pos, 1);
-    this.loggingService.log(assignment.nom, "Supprimé")
-    return of("Supprimé")
+    // let pos = this.assignments.indexOf(assignment);
+    // this.assignments.splice(pos, 1);
+    // this.loggingService.log(assignment.nom, "Supprimé")
+    // return of("Supprimé")
+    return this.http.delete<any>(this.backendURL + "/" + assignment._id)
   }
 }
