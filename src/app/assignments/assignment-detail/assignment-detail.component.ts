@@ -5,6 +5,7 @@ import {MatCardModule} from '@angular/material/card'
 import {MatCheckboxModule} from '@angular/material/checkbox'
 import { AssignmentsService } from '../../shared/assignments.service';
 import { MatButtonModule } from '@angular/material/button';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -14,20 +15,36 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './assignment-detail.component.css'
 })
 export class AssignmentDetailComponent implements OnInit {
-  @Input()
+  // @Input()
   assignmentTransmis!: Assignment | undefined
   // @Output()
   // deleteAssignment = new EventEmitter<Assignment>();
 
-  constructor(private assignmentService: AssignmentsService){}
+  constructor(
+    private assignmentService: AssignmentsService, 
+    private route: ActivatedRoute,
+    private router: Router
+  ){}
 
-  ngOnInit(): void{}
+  ngOnInit(): void{
+    this.getAssignment()
+  }
+
+
+  getAssignment(){
+    const id = this.route.snapshot.params['id'];
+    this.assignmentService.getAssignment(id)
+      .subscribe(assignment => this.assignmentTransmis = assignment)
+  }
 
   onAssignmentRendu(){
     if(this.assignmentTransmis){
       this.assignmentTransmis.rendu = true
       this.assignmentService.updateAssignment(this.assignmentTransmis)
-        .subscribe(res => console.log(res))
+        .subscribe(res => {
+          console.log(res)
+          this.router.navigate(["/home"])
+        })
     }
   }
 
@@ -37,7 +54,8 @@ export class AssignmentDetailComponent implements OnInit {
         this.assignmentService.deleteAssignment(this.assignmentTransmis)
           .subscribe(reponse => {
             console.log(reponse)
-            this.assignmentTransmis = undefined
+            this.router.navigate(["/home"])
+            // this.assignmentTransmis = undefined
           }); 
     }
   }

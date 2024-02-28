@@ -9,16 +9,19 @@ import { LoggingService } from './logging.service';
 export class AssignmentsService {
   assignments: Assignment[] = [
     {
+      id:0,
       nom: "Angular",
       dateDeRendu: new Date("08-08-2024"),
       rendu: true
     },
     {
+      id:1,
       nom: "SQL",
       dateDeRendu: new Date("08-08-2024"),
       rendu: false
     },
     {
+      id:2,
       nom: "DB",
       dateDeRendu: new Date("08-08-2024"),
       rendu: true
@@ -29,6 +32,11 @@ export class AssignmentsService {
 
   getAssignments(): Observable<Assignment[]> {
     return of(this.assignments);
+  }
+
+  getAssignment(id: number): Observable<Assignment | undefined> {
+    const a:Assignment | undefined = this.assignments.find(a => a.id == id)
+    return of(a);
   }
 
   addAssignment(assignment: Assignment): Observable<string> {

@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AssignmentsService } from '../../shared/assignments.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-assignment',
@@ -22,7 +23,7 @@ import { AssignmentsService } from '../../shared/assignments.service';
 export class AddAssignmentComponent {
   // @Output() nouvelAssignment = new EventEmitter<Assignment>();
 
-  constructor(private assignmentService: AssignmentsService) { }
+  constructor(private assignmentService: AssignmentsService, private router: Router) { }
 
   ajoutActive = false
   NomAssignment = "";
@@ -31,6 +32,7 @@ export class AddAssignmentComponent {
   onSubmit(event: any){
     if ((this.NomAssignment === "") || (this.DateAssignment === undefined)) return;
     let newassignment = new Assignment()
+    newassignment.id = Math.floor(Math.random() * 100);
     newassignment.nom = this.NomAssignment
     newassignment.dateDeRendu = this.DateAssignment
     newassignment.rendu = false
@@ -39,6 +41,7 @@ export class AddAssignmentComponent {
     this.assignmentService.addAssignment(newassignment)
     .subscribe(reponse => {
       console.log(reponse);
+      this.router.navigate(["/home"])
     })
     // this.nouvelAssignment.emit(newassignment)
     // this.assignments.push(assignment)

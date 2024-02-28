@@ -22,20 +22,28 @@
   <mat-list>
     @for(assignment of assignments; track assignment.nom){
     <mat-list-item (click)="assignmentClique(assignment)">
-      <div [ngClass]="{ rendu: assignment.rendu, nonrendu: !assignment.rendu }">
-        <h3 mat-subheader>
-          {{ assignment.nom }} :
-          <small>{{ assignment.dateDeRendu | date : "dd/MM/YYYY" }}</small>
-        </h3>
-      </div>
+      <nav>
+        <a routerLink="/assignment/{{ assignment.id }}">
+          <div
+            [ngClass]="{ rendu: assignment.rendu, nonrendu: !assignment.rendu }"
+          >
+            <h3 mat-subheader>
+              {{ assignment.nom }} :
+              <small>{{ assignment.dateDeRendu | date : "dd/MM/YYYY" }}</small>
+            </h3>
+          </div>
+        </a>
+      </nav>
     </mat-list-item>
     <mat-divider></mat-divider>
     }
   </mat-list>
 </div>
+
+<!--
 <app-assignment-detail
   [assignmentTransmis]="assignmentSelecionne"
-></app-assignment-detail>
+></app-assignment-detail>-->
 
 <!--
   <app-assignment-detail
