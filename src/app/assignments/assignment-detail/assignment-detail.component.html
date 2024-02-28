@@ -13,7 +13,8 @@
       >
       <button mat-flat-button color="warn" (click)="onDelete()">Delete</button>
       <nav>
-        <a routerLink="edit">
+        <!--<a routerLink="edit">-->
+        <a [routerLink]="['/assignment', assignmentTransmis.id , 'edit']">
           <button mat-raised-button color="primary">EDIT</button>
         </a>
       </nav>
